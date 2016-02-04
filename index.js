@@ -1,9 +1,11 @@
 'use strict';
 
 const Hapi = require('hapi');
-const ExerciseRepository = require('./src/repository/exercise_repository');
-const Exercise = require('./src/models/exercise');
 const Blipp = require('blipp');
+
+const ExerciseRepository = require('./lib/repository/exercise_repository');
+const Exercise = require('./lib/models/exercise');
+const ExerciseController = require('./lib/controllers/exercise');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000 });
@@ -14,29 +16,30 @@ server.register([Blipp], (err) => {
   }
 });
 
-server.bind({
-  repository: new ExerciseRepository()
-});
+const repository = new ExerciseRepository();
 
 server.route({
   method: 'GET',
   path: '/',
-  handler: function (request, reply) {
-    return reply(this.repository.list());
+  config: {
+    bind: {
+      repository: repository
+    },
+    handler: ExerciseController.list
   }
 });
 
 server.route({
   method: 'POST',
   path: '/',
-  handler: function (request, reply) {
-    this.repository.add(request.payload);
-    return reply('Saved');
-  },
   config: {
+    bind: {
+      repository: repository
+    },
     validate: {
       payload: Exercise
-    }
+    },
+    handler: ExerciseController.save
   }
 });
 
