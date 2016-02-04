@@ -1,0 +1,30 @@
+{
+  "name": "hapi-exercise-log-simple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Joseph Downing <joseph.downing@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "blipp": "^2.3.0",
+    "hapi": "12.x.x",
+    "joi": "^7.2.3",
+    "lodash": "^4.0.1"
+  },
+  "devDependencies": {
+  }
+}
