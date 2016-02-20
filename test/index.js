@@ -18,7 +18,7 @@ const it = lab.test;
 
 it('starts server and returns hapi server object', (done) => {
 
-    Server.init(0, (err, server) => {
+    Server.init(true, 0, (err, server) => {
 
         expect(err).to.not.exist();
         expect(server).to.be.instanceof(Hapi.Server);
@@ -29,7 +29,7 @@ it('starts server and returns hapi server object', (done) => {
 
 it('starts server on provided port', (done) => {
 
-    Server.init(5000, (err, server) => {
+    Server.init(true, 5000, (err, server) => {
 
         expect(err).to.not.exist();
         expect(server.info.port).to.be.equal(5000);
@@ -52,7 +52,7 @@ it('handles register plugin errors', { parallel: false }, (done) => {
         name: 'fake exercise'
     };
 
-    Server.init(0, (err, server) => {
+    Server.init(true, 0, (err, server) => {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register exercise failed');
