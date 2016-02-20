@@ -64,7 +64,7 @@ describe('/exercise', () => {
                 server.inject('/exercise', (getRes) => {
 
                     expect(getRes.statusCode).to.equal(200);
-                    expect(getRes.result).to.deep.equal([exercise]);
+                    expect(getRes.result).to.deep.part.include(exercise);
 
                     server.stop(done);
                 });
