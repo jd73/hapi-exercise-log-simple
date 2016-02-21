@@ -15,7 +15,7 @@ const expect = Code.expect;
 const it = lab.test;
 
 
-describe('/exercises', () => {
+describe('/workouts', () => {
 
     it('returns an empty list at first', (done) => {
 
@@ -23,7 +23,7 @@ describe('/exercises', () => {
 
             expect(err).to.not.exist();
 
-            server.inject('/exercises', (res) => {
+            server.inject('/workouts', (res) => {
 
                 expect(res.statusCode).to.equal(200);
                 expect(res.result).to.deep.equal([]);
@@ -33,13 +33,13 @@ describe('/exercises', () => {
         });
     });
 
-    it('returns a bad request error if sent an invalid exercise', (done) => {
+    it('returns a bad request error if sent an invalid workout', (done) => {
 
         Server.init(true, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
-            const request = { method: 'POST', url: '/exercises', payload: { garbage: 'some garbage' } };
+            const request = { method: 'POST', url: '/workouts', payload: { garbage: 'some garbage' } };
             server.inject(request, (res) => {
 
                 expect(res.statusCode).to.equal(400);
@@ -49,22 +49,22 @@ describe('/exercises', () => {
         });
     });
 
-    it('allows you to post and get a valid exercise', (done) => {
+    it('allows you to post and get a valid workout', (done) => {
 
         Server.init(true, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
-            const exercise = { name: 'kettlebell swings' };
-            const request = { method: 'POST', url: '/exercises', payload: exercise };
+            const workout = { name: 'kettlebell swings' };
+            const request = { method: 'POST', url: '/workouts', payload: workout };
             server.inject(request, (postRes) => {
 
                 expect(postRes.statusCode).to.equal(200);
 
-                server.inject('/exercises', (getRes) => {
+                server.inject('/workouts', (getRes) => {
 
                     expect(getRes.statusCode).to.equal(200);
-                    expect(getRes.result).to.deep.part.include(exercise);
+                    expect(getRes.result).to.deep.part.include(workout);
 
                     server.stop(done);
                 });
