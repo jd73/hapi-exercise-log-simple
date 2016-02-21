@@ -20,3 +20,11 @@ it('sets sync options correctly according to whether test is true or false', (do
 
     done();
 });
+
+it('sets good options correctly according to whether test is true or false', (done) => {
+
+    expect(Options.goodOptions(true)).to.deep.equal(Options.GOOD_OPTIONS_TEST);
+    expect(Options.goodOptions(false)).to.deep.equal(Options.GOOD_OPTIONS);
+
+    done();
+});
