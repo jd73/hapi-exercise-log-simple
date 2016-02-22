@@ -60,11 +60,12 @@ describe('/workouts', () => {
             server.inject(request, (postRes) => {
 
                 expect(postRes.statusCode).to.equal(200);
+                expect(JSON.parse(postRes.payload)).to.include(workout);
 
                 server.inject('/workouts', (getRes) => {
 
                     expect(getRes.statusCode).to.equal(200);
-                    expect(getRes.result).to.deep.part.include(workout);
+                    expect(getRes.result).to.deep.include(workout);
 
                     server.stop(done);
                 });
