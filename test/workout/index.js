@@ -55,19 +55,40 @@ describe('/workouts', () => {
 
             expect(err).to.not.exist();
 
-            const workout = { name: 'kettlebell swings' };
-            const request = { method: 'POST', url: '/workouts', payload: workout };
-            server.inject(request, (postRes) => {
+            const exercise = { name: 'kettlebell swings' };
+            const exerciseRequest = { method: 'POST', url: '/exercises', payload: exercise };
+            server.inject(exerciseRequest, (exercisePostResponse) => {
 
-                expect(postRes.statusCode).to.equal(200);
-                expect(JSON.parse(postRes.payload)).to.include(workout);
+                expect(exercisePostResponse.statusCode).to.equal(200);
 
-                server.inject('/workouts', (getRes) => {
+                const workout = {
+                    date: new Date().toISOString()//,
+                    //exercises: [exercise.name]
+                };
+                console.log('workout payload:');
+                console.dir(workout);
 
-                    expect(getRes.statusCode).to.equal(200);
-                    expect(getRes.result).to.deep.include(workout);
+                const request = { method: 'POST', url: '/workouts', payload: workout };
+                server.inject(request, (postRes) => {
 
-                    server.stop(done);
+                    console.log('========================================');
+                    console.log('post response payload:');
+                    console.dir(postRes.payload);
+                    expect(postRes.statusCode).to.equal(200);
+                    expect(JSON.parse(postRes.payload)).to.include(workout);
+
+
+                    server.inject('/workouts', (getRes) => {
+
+                        console.log('========================================');
+                        console.log('get response payload');
+                        console.dir(getRes.result);
+
+                        expect(getRes.statusCode).to.equal(200);
+                        expect(getRes.result).to.deep.include(workout);
+
+                        server.stop(done);
+                    });
                 });
             });
         });
