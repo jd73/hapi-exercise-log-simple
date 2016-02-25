@@ -19,7 +19,7 @@ describe('/workouts', () => {
 
     it('returns an empty list at first', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -35,7 +35,7 @@ describe('/workouts', () => {
 
     it('returns a bad request error if sent an invalid workout', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -51,7 +51,7 @@ describe('/workouts', () => {
 
     it('allows you to post and get a valid workout', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 

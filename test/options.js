@@ -28,3 +28,4 @@ it('sets good options correctly according to whether test is true or false', (do
 
     done();
 });
+

@@ -19,11 +19,13 @@ describe('/exercises', () => {
 
     it('returns an empty list at first', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
             server.inject('/exercises', (res) => {
+
+                //console.dir(res);
 
                 expect(res.statusCode).to.equal(200);
                 expect(res.result).to.deep.equal([]);
@@ -35,7 +37,7 @@ describe('/exercises', () => {
 
     it('returns a bad request error if sent an invalid exercise', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -51,7 +53,7 @@ describe('/exercises', () => {
 
     it('allows you to post and get a valid exercise', (done) => {
 
-        Server.init(true, 0, (err, server) => {
+        Server.init({ test: true }, 0, (err, server) => {
 
             expect(err).to.not.exist();
 

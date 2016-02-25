@@ -32,6 +32,7 @@
   },
   "scripts": {
     "test": "lab -a code -t 100 -L -v",
+    "testdebug": "lab -a code -v -D",
     "test-cov-html": "lab -a code -L -r html -o coverage.html",
     "start": "node lib/start.js"
   },
