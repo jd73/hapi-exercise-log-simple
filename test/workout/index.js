@@ -62,8 +62,8 @@ describe('/workouts', () => {
                 expect(exercisePostResponse.statusCode).to.equal(200);
 
                 const workout = {
-                    date: new Date().toISOString()//,
-                    //exercises: [exercise.name]
+                    date: new Date().toISOString(),
+                    exercises: [exercise.name]
                 };
                 console.log('workout payload:');
                 console.dir(workout);
@@ -75,17 +75,37 @@ describe('/workouts', () => {
                     console.log('post response payload:');
                     console.dir(postRes.payload);
                     expect(postRes.statusCode).to.equal(200);
-                    expect(JSON.parse(postRes.payload)).to.include(workout);
+                    //expect(JSON.parse(postRes.payload)).to.include(workout);
 
+                    const returnedExercise = JSON.parse(exercisePostResponse.payload);
+
+                    const expectedAssociatedExercise = {
+                        name: exercise.name,
+                        createdAt: returnedExercise.createdAt,
+                        updatedAt: returnedExercise.updatedAt
+                    };
+
+                    const expectedPostSaveWorkout = {
+                        id: 1,
+                        date: workout.date,
+                        exercises: [expectedAssociatedExercise]
+                    };
+
+                    console.dir('expected associated exercise');
+                    console.dir(expectedAssociatedExercise);
+
+                    console.dir('expected workout');
+                    console.dir(expectedPostSaveWorkout);
 
                     server.inject('/workouts', (getRes) => {
 
                         console.log('========================================');
                         console.log('get response payload');
                         console.dir(getRes.result);
+                        console.dir(getRes.result[0].exercises);
 
                         expect(getRes.statusCode).to.equal(200);
-                        expect(getRes.result).to.deep.include(workout);
+                        expect(getRes.result).to.deep.include(expectedPostSaveWorkout);
 
                         server.stop(done);
                     });
