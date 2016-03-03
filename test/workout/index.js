@@ -65,17 +65,11 @@ describe('/workouts', () => {
                     date: new Date().toISOString(),
                     exercises: [exercise.name]
                 };
-                console.log('workout payload:');
-                console.dir(workout);
 
                 const request = { method: 'POST', url: '/workouts', payload: workout };
                 server.inject(request, (postRes) => {
 
-                    console.log('========================================');
-                    console.log('post response payload:');
-                    console.dir(postRes.payload);
                     expect(postRes.statusCode).to.equal(200);
-                    //expect(JSON.parse(postRes.payload)).to.include(workout);
 
                     const returnedExercise = JSON.parse(exercisePostResponse.payload);
 
@@ -91,18 +85,7 @@ describe('/workouts', () => {
                         exercises: [expectedAssociatedExercise]
                     };
 
-                    console.dir('expected associated exercise');
-                    console.dir(expectedAssociatedExercise);
-
-                    console.dir('expected workout');
-                    console.dir(expectedPostSaveWorkout);
-
                     server.inject('/workouts', (getRes) => {
-
-                        console.log('========================================');
-                        console.log('get response payload');
-                        console.dir(getRes.result);
-                        console.dir(getRes.result[0].exercises);
 
                         expect(getRes.statusCode).to.equal(200);
                         expect(getRes.result).to.deep.include(expectedPostSaveWorkout);
