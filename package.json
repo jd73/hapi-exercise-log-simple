@@ -24,11 +24,14 @@
     "good-file": "^5.1.2",
     "hapi": "12.x.x",
     "hapi-sequelize": "^2.2.4",
+    "hapi-swagger": "^4.2.1",
     "hoek": "3.x.x",
+    "inert": "^3.2.0",
     "joi": "^7.2.3",
     "lodash": "^4.0.1",
     "pg": "^4.4.6",
-    "sequelize": "^3.19.3"
+    "sequelize": "^3.19.3",
+    "vision": "^4.0.1"
   },
   "scripts": {
     "test": "lab -a code -t 100 -L -v",
